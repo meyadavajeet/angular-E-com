@@ -1,3 +1,4 @@
+import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -20,9 +21,19 @@ export class SignupComponent implements OnInit {
     let phone = (<HTMLInputElement>form.elements.namedItem('phone')).value;
     let email = (<HTMLInputElement>form.elements.namedItem('email')).value;
     let password = (<HTMLInputElement>form.elements.namedItem('password')).value;
-    console.log({
-      name , email , phone , password
-    });
+    // console.log({
+    //   name , email , phone , password
+    // });
+
+    let user : User = {
+      name,
+      email,
+      phone,
+      password
+    }
+
+    console.log({user});
+    
 
     
   }

@@ -1,5 +1,7 @@
+import { UserService } from './../../services/user/user.service';
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -8,12 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  public error: string;
+  public success: string;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
   }
 
-  signup(event:Event){
+  signup(event: Event) {
     event.preventDefault();
     console.log(event.target);
     let form = <HTMLFormElement>event.target;
@@ -25,16 +30,55 @@ export class SignupComponent implements OnInit {
     //   name , email , phone , password
     // });
 
-    let user : User = {
+    let user: User = {
       name,
       email,
       phone,
       password
     }
+    console.log({ user });
 
-    console.log({user});
-    
+    //subscribe this userService observer to perform signup 
+    this.userService.signup(user).subscribe(
+      
+        {
+        next:(result : { message:string }) =>{
+          console.log(result);
+          this.success = result.message;
+          this.error = undefined;
+        },
+        error:(response : HttpErrorResponse,)=>{
+          console.log(response);
+          this.error = response.error.error.message;
+          this.success = undefined;
+        }
+      }
+/**
+ * Console the status
+ */
+      // {
+      //   next:(result)=>{
+      //     console.log(result);
+      //   },
+      //   error:(err)=>{
+      //     console.log(err);
+          
+      //   }
 
-    
+      // }
+      
+    /**
+* end Console the status
+*/
+      //another way of handling request of result and error
+      // (result) => {
+
+      // },
+      // (err) => {
+
+      // }
+    )
+
+
   }
 }

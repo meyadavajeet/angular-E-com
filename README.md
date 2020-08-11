@@ -35,3 +35,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ##how to run angular application on another port
     $ ng serve --port 8090
+
+##how to install jquery in angular app
+$ npm install jquery --save
+$ npm install @types/jquery --save
+
+->after this two commands you have to import in the angular.json file
+"scripts": [
+              "node_modules/jquery/dist/jquery.min.js"
+            ]
+
+-> after that open  tsconfig.app.json and register 
+"types": ["jquery"]

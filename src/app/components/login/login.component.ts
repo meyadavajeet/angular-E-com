@@ -1,6 +1,7 @@
 import { map } from 'jquery';
 import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   form : HTMLFormElement;
   success :string;
   error : string;
-  constructor(private userService : UserService) { }
+  constructor(private userService : UserService , private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -23,7 +24,9 @@ export class LoginComponent implements OnInit {
     this.form = <HTMLFormElement>event.target;
     this.readValuesFromForm();
   }
-
+  navigateToHomePage(){
+    this.router.navigate([""]);
+  }
   readValuesFromForm(){
     let email =(<HTMLInputElement>this.form.elements.namedItem('email')).value;
     let password = (<HTMLInputElement>this.form.elements.namedItem('password')).value;
@@ -41,6 +44,7 @@ export class LoginComponent implements OnInit {
             console.log(result);
             this.success = result.message;
             this.error = undefined;
+            this.navigateToHomePage();
           },
           error: (response) =>{
             console.log(response);

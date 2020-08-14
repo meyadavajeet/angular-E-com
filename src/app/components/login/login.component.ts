@@ -1,3 +1,4 @@
+import { map } from 'jquery';
 import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
       this.userService.login(credentials)
       .subscribe(
         {
-          next : (result :{message: string, token: string})=>{
+          next : (result)=>{
             console.log(result);
             this.success = result.message;
             this.error = undefined;

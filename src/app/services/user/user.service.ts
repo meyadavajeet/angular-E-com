@@ -7,11 +7,16 @@ import { HttpClient } from "@angular/common/http";
 })
 export class UserService {
   private userSignupUrl = 'http://localhost:8090/api/users/signup';
+  private userLoginUrl =  'http://localhost:8090/api/users/login';
   
   constructor(private http: HttpClient) { }
 
   signup(user:User){
    return this.http.post(this.userSignupUrl,user);
 
+  }
+
+  login(credentials : {email: string, password: string}){
+    return this.http.post(this.userLoginUrl,credentials);
   }
 }
